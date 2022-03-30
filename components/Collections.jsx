@@ -51,7 +51,7 @@ function Collections({ home }) {
         <section className={`p-10 ${home && 'sm:my-20'} text-center`}>
             <h1 className='capitalize text-3xl sm:text-4xl 2xl:text-5xl font-semibold text-center'>Hot Drops 🔥</h1>
             <p className='text-base sm:text-lg 2xl:text-xl max-w-3xl mx-auto text-zinc-300 text-center'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, aspernatur. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, beatae!
+                Top trending 🚀 and hot 🔥 NFTs collection for you, start buying now
             </p>
             {!home &&
                 <div className='scrollbar__hidden overflow-x-auto flex items-center gap-x-5 md:gap-x-10 py-5 mt-5 max-w-7xl mx-auto'>

@@ -36,16 +36,16 @@ function index() {
     <>
       <section className='p-10 text-center flex flex-col items-center justify-center relative'>
         <h1 className='text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl font-bold max-w-2xl 2xl:max-w-3xl'><span className='text-teal-300'>Discover</span> Arts, Collect and Sell Rare <span className='text-teal-300'>NFTs</span></h1>
-        <p className='max-w-3xl text-lg md:text-xl text-gray-400'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis earum quos, aperiam nam dolore nisi mollitia corporis! Voluptates, iusto blanditiis.</p>
+        {/* <p className='max-w-3xl text-lg md:text-xl text-gray-400'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis earum quos, aperiam nam dolore nisi mollitia corporis! Voluptates, iusto blanditiis.</p> */}
       </section>
 
       <Collections home />
 
-      <Cards title='Create and sell your NFTs ✨' description='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus praesentium soluta accusamus perferendis quo odio ipsam fugit ' items={items} />
+      <Cards title='Create and sell your NFTs ✨' description='In just some following steps' items={items} />
 
       <NFTs home />
 
-      <section className='p-10 sm:my-20 text-center'>
+      {/* <section className='p-10 sm:my-20 text-center'>
         <h1 className='capitalize text-3xl sm:text-4xl 2xl:text-5xl font-semibold text-center'>Top Creators of this week</h1>
         <p className='text-base sm:text-lg 2xl:text-xl max-w-3xl mx-auto text-zinc-300 text-center'>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, aspernatur. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, beatae!
@@ -61,7 +61,7 @@ function index() {
             </div>
           )}
         </div>
-      </section>
+      </section> */}
     </>
   )
 }

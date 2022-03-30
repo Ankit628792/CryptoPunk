@@ -2,12 +2,13 @@ import mongoose from 'mongoose'
 const NftSchema = new mongoose.Schema({
     name: { type: String, required: true },
     media: { type: String, required: true },
-    collections: { type: mongoose.Types.ObjectId },
+    nftCollection: { type: String },
+    // nftCollection: { type: mongoose.Types.ObjectId },
     blockchain: { type: String },
     description: { type: String },
     price: { type: Number },
     dateRange: { type: Array },
-    user: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    user: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 },
     {
         timestamps: true

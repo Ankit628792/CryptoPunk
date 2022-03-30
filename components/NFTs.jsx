@@ -52,7 +52,7 @@ function NFTs({ home }) {
         <section className={`p-10 ${home && 'sm:my-20'} text-center`}>
             <h1 className='capitalize text-3xl sm:text-4xl 2xl:text-5xl font-semibold text-center'>Trending in all category</h1>
             <p className='text-base sm:text-lg 2xl:text-xl max-w-3xl mx-auto text-zinc-300 text-center'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, aspernatur. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, beatae!
+                Top trending 🚀 and hot 🔥 NFT for you, start buying now
             </p>
             {!home && <div className='scrollbar__hidden overflow-x-auto flex items-center gap-x-5 md:gap-x-10 py-5 mt-5 max-w-7xl mx-auto'>
                 <span onClick={() => setNft('')} value='' className={`capitalize bg-teal-600 text-white  font-medium px-4 py-1.5 cursor-pointer rounded-3xl text-base md:text-lg hover:scale-105 transition-transform duration-150 ease-out ${!nft && 'bg-gray-50 text-gray-700'}`}>All</span>
