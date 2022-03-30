@@ -8,7 +8,7 @@ const NftSchema = new mongoose.Schema({
     description: { type: String },
     price: { type: Number },
     dateRange: { type: Array },
-    user: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    user: { type: String }
 },
     {
         timestamps: true

@@ -5,10 +5,13 @@ import { Form, Select, Input, InputNumber, Button, Upload } from 'antd';
 const { Option } = Select
 
 import { UploadOutlined } from '@ant-design/icons';
+import { useState } from "react";
 
 function create() {
 
     const { isAuthenticated, authenticate, user } = useMoralis();
+
+    const [isSending, setIsSending] = useState(false)
 
     const uploadImage = async (image) => {
         let data = new FormData()
@@ -30,13 +33,14 @@ function create() {
     }
 
     const onFinish = async (values) => {
+        setIsSending(true)
         let logo_url = await uploadImage(values.logo?.file.originFileObj)
         let featured_url = await uploadImage(values.featured?.file.originFileObj)
         let banner_url = await uploadImage(values.banner?.file.originFileObj)
         const formData = {
             ...values,
             logoURL: logo_url,
-            featuredURL: featured_url,
+            featureURL: featured_url,
             bannerURL: banner_url,
             user: user?.get("ethAddress")
         }
@@ -49,6 +53,7 @@ function create() {
             body: JSON.stringify(formData)
         })
         const response = await res.json()
+        setIsSending(false)
         if (response.status === 201) {
             alert(response.data)
             window.location.reload()
@@ -56,6 +61,7 @@ function create() {
         else {
             alert(response.message)
         }
+
     };
 
     return (
@@ -201,8 +207,8 @@ function create() {
                             </Form.Item>
 
                             <Form.Item>
-                                <Button type="primary" htmlType="submit">
-                                    Submit
+                                <Button type="primary" htmlType="submit" disabled={isSending}>
+                                    {isSending ? 'Creating...' : 'Submit'}
                                 </Button>
                             </Form.Item>
                         </Form>

@@ -7,9 +7,11 @@ const { RangePicker } = DatePicker;
 const dateFormat = 'YYYY-MM-DD';
 
 import { UploadOutlined } from '@ant-design/icons';
+import { useState } from "react";
 
 function create() {
     const { isAuthenticated, authenticate, user } = useMoralis();
+    const [isSending, setIsSending] = useState(false)
 
     function other(file) {
         if (!file) return;
@@ -31,6 +33,7 @@ function create() {
     }
 
     const onFinish = async (values) => {
+        setIsSending(true)
         const rangeValue = values['date-range'];
         const media_url = await uploadImage(values.media?.file.originFileObj)
 
@@ -49,6 +52,7 @@ function create() {
                 body: JSON.stringify(formData)
             })
             const response = await res.json()
+            setIsSending(false)
             if (response.status === 201) {
                 alert(response.data)
                 window.location.reload()
@@ -195,8 +199,8 @@ function create() {
                             </Form.Item>
 
                             <Form.Item>
-                                <Button type="primary" htmlType="submit">
-                                    Submit
+                                <Button type="primary" htmlType="submit" disabled={isSending}>
+                                    {isSending ? 'Creating...' : 'Submit'}
                                 </Button>
                             </Form.Item>
                         </Form>

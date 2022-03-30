@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Collection from './Collection'
-
+import Router from 'next/router'
 
 const category = [
     {
@@ -46,6 +46,11 @@ const category = [
 ]
 
 function Collections({ home }) {
+    const [collectionList, setCollectionList] = useState()
+    const count = home ? 6 : 100
+    useEffect(() => {
+        fetch(`/api/collection?limit=${count}`).then(res => res.json()).then(data => setCollectionList(data?.data))
+    }, [])
     const [collection, setCollection] = useState('')
     return (
         <section className={`p-10 ${home && 'sm:my-20'} text-center`}>
@@ -64,15 +69,9 @@ function Collections({ home }) {
                 </div>
             }
             <div className='p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center items-stretch justify-evenly max-w-7xl mx-auto flex-wrap gap-12 lg:gap-y-16'>
-                <Collection />
-                <Collection />
-                <Collection />
-                <Collection />
-                <Collection />
-                <Collection />
-                {!home && category.map(i => <Collection key={i + i} />)}
+                {collectionList?.length > 0 && collectionList.map((item, i) => <Collection key={i + i} collection={item} />)}
             </div>
-            {home && <button className='text-teal-400 border-2 border-teal-400 hover:bg-teal-600 hover:text-white hover:scale-105 px-5 py-2 rounded-3xl mt-8 text-base sm:text-lg lg:text-xl font-medium transition-all duration-200 ease-out group flex items-center mx-auto'>View More
+            {home && <button onClick={() => Router.push('/nft/collection/')} className='text-teal-400 border-2 border-teal-400 hover:bg-teal-600 hover:text-white hover:scale-105 px-5 py-2 rounded-3xl mt-8 text-base sm:text-lg lg:text-xl font-medium transition-all duration-200 ease-out group flex items-center mx-auto'>View More
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-10 transform scale-x-110 group-hover:scale-x-125 origin-left transition-transform duration-200 ease-out " viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>

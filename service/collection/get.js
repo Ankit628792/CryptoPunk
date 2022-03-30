@@ -1,17 +1,17 @@
 const { default: Collection } = require("../../models/collection");
 
-const getAllCollections =async (req ,res ,next) => {
-    try{
-        const response = await Collection.find();
+const getAllCollections = async (req, res, next) => {
+    try {
+        const response = await Collection.find().limit(req.query.limit);
         console.log("checking connections ", response);
         res.json({
             data: response,
-            message:{
+            message: {
                 message: "Collection found successfully",
                 status: 200
             }
         })
-    }catch(err){
+    } catch (err) {
         console.log(err);
         res.json({
             message: err.message,
@@ -20,9 +20,9 @@ const getAllCollections =async (req ,res ,next) => {
     }
 }
 
-const getCollection= async (req , res , next) => {
-    try{
-        const response = await Collection.find({_id: req.query.id});
+const getCollection = async (req, res, next) => {
+    try {
+        const response = await Collection.find({ _id: req.query.id });
         console.log(response);
         res.json({
             data: response,
@@ -31,7 +31,7 @@ const getCollection= async (req , res , next) => {
                 code: 200,
             }
         })
-    }catch(err){
+    } catch (err) {
 
     }
 }

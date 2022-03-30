@@ -12,7 +12,7 @@ function Navbar() {
 
     const registerUser = async () => {
 
-        const data = { username: user?.get('username'), walletAddres: user?.get("ethAddress") }
+        const data = { username: user?.get('username'), walletAddress: user?.get("ethAddress") }
         const res = await fetch('/api/user', {
             method: 'POST',
             headers: {

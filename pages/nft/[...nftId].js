@@ -1,19 +1,19 @@
 import React from 'react'
 import { SingleNFT } from '../../components'
 
-export default function NFTDetails({_id}) {
-    console.log(_id)
+export default function NFTDetails({ nft }) {
     return (
         <>
-            <SingleNFT />
+            <SingleNFT nft={nft} />
         </>
     )
 }
 
 export async function getServerSideProps({ params }) {
+    const { data } = await fetch(`${process.env.host}/api/nft?id=${params?.nftId}`).then(res => res.json())
     return {
         props: {
-            _id: params.nftId
+            nft: data[0]
         }
     }
 }

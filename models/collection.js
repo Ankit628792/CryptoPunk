@@ -9,7 +9,7 @@ const CollectionSchema = new mongoose.Schema({
     blockchain: { type: String },
     category: { type: Array },
     earning: { type: Number },
-    user: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    user: { type: String }
 },
     {
         timestamps: true

@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NFT } from '../../../components'
 
-export default function CollectionDetails(_id) {
-  console.log(_id)
+export default function CollectionDetails({ collection }) {
+  const [nftList, setNftList] = useState()
+  useEffect(() => {
+    fetch(`/api/nft?limit=${10}`).then(res => res.json()).then(data => setNftList(data?.data))
+  }, [])
   return (
     <>
       <div className="h-40 sm:h-48 w-full flex justify-center items-center">
         <img
           className="w-full h-full object-cover"
           src={
-            'https://cdn.sanity.io/images/lj6cax0s/production/63d42815a45e47238c34e41e33580e39b02182d4-1358x755.png'
+            collection?.bannerURL
           }
           alt="banner"
         />
@@ -17,26 +20,26 @@ export default function CollectionDetails(_id) {
       <div className="px-4 w-full">
         <div className='w-full flex justify-center text-white'>
           <img
-            className="w-28 h-28 sm:w-40 sm:h-40 object-cover rounded-full border-2 border-teal-800 -mt-16 sm:-mt-20"
+            className="w-28 h-28 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-teal-800 -mt-16 sm:-mt-20"
             src={
-              'https://cdn.sanity.io/images/lj6cax0s/production/1b0a3ca7a6b3e875470391e04e454281abb00f97-281x280.jpg'
+              collection?.featureURL || collection?.logoURL
             }
             alt="profile image"
           />
         </div>
         <div className="text-center text-white">
-          <div className="text-3xl sm:text-5xl font-bold mb-4">Bored Ape Club</div>
+          <div className="text-3xl sm:text-5xl font-bold mb-4">{collection?.name}</div>
         </div>
         <div className="text-center text-white">
-          <p className="text-base sm:text-lg mb-4">
+          {/* <p className="text-base sm:text-lg mb-4">
             Created by{' '}
             <span className="text-teal-400">Game Changer</span>
-          </p>
+          </p> */}
         </div>
         <div className="w-full flex justify-center text-white">
           <div className="flex flex-wrap justify-center gap-10 p-5 sm:px-10 border border-teal-900 rounded-xl mb-4">
             <div className="">
-              <div className="text-3xl font-bold text-center">0</div>
+              <div className="text-3xl font-bold text-center">10</div>
               <div className="text-lg min-w-max text-center mt-1">Items</div>
             </div>
             <div className="">
@@ -52,7 +55,7 @@ export default function CollectionDetails(_id) {
                   alt="eth"
                   className="h-6 mr-2"
                 />
-                99
+                0.5
               </div>
               <div className="text-lg min-w-max text-center mt-1">Floor Price</div>
             </div>
@@ -63,14 +66,14 @@ export default function CollectionDetails(_id) {
                   alt="eth"
                   className="h-6 mr-2"
                 />
-                124.5K
+                124.1
               </div>
               <div className="text-lg min-w-max text-center mt-1">Volume Traded</div>
             </div>
           </div>
         </div>
         <div className="text-center text-white">
-          <div className="text-lg sm:text-xl my-4 text-gray-300">Bexport default ored Ape Club is a Details of thousands of Ape NFTs</div>
+          <div className="text-lg sm:text-xl my-4 text-gray-300">{collection?.description}</div>
         </div>
       </div>
 
@@ -78,23 +81,18 @@ export default function CollectionDetails(_id) {
 
       {/* collection NFTs here */}
       <div className='p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center items-stretch justify-evenly max-w-7xl mx-auto flex-wrap gap-12 lg:gap-y-16'>
-        <NFT />
-        <NFT />
-        <NFT />
-        <NFT />
-        <NFT />
-        <NFT />
-        <NFT />
-        <NFT />
+        {nftList?.length > 0 && nftList.map((nft, i) => <NFT key={i + i} nft={nft} />)}
       </div>
     </>
   )
 }
 
 export async function getServerSideProps({ params }) {
+  console.log(params)
+  const { data } = await fetch(`${process.env.host}/api/collection?id=${params.collectionId}`).then(res => res.json())
   return {
     props: {
-      _id: params.collectionId
+      collection: data[0]
     }
   }
 }
