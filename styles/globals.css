@@ -115,7 +115,7 @@ h1.text-teal-300, span.text-teal-300{
       }
     
       .hamburger-menu input:checked+.hamburger-inner {
-          box-shadow: 0 0 0 100vw #2dd4bf, 0 0 0 100vh #2dd4bf;
+          box-shadow: 0 0 0 100vw #2dd4bf, 0 0 0 110vh #2dd4bf;
       }
     
       .hamburger-menu input:checked+.hamburger-inner .hamburger-icon {
@@ -171,6 +171,7 @@ h1.text-teal-300, span.text-teal-300{
           font-weight: bold;
           margin-bottom: 22px;
           display: block;
+          min-width: max-content;
           color: #fff;
           text-decoration: none;
       }

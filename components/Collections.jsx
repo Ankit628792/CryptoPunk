@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Collection from './Collection'
 import Router from 'next/router'
 
@@ -45,15 +45,10 @@ const category = [
     },
 ]
 
-function Collections({ home }) {
-    const [collectionList, setCollectionList] = useState()
-    const count = home ? 6 : 100
-    useEffect(() => {
-        fetch(`/api/collection?limit=${count}`).then(res => res.json()).then(data => setCollectionList(data?.data))
-    }, [])
+function Collections({ home, collectionList }) {
     const [collection, setCollection] = useState('')
     return (
-        <section className={`p-10 ${home && 'sm:my-20'} text-center`}>
+        <section className={`p-5 sm:p-10 ${home && 'sm:my-20'} text-center`}>
             <h1 className='capitalize text-3xl sm:text-4xl 2xl:text-5xl font-semibold text-center'>Hot Drops 🔥</h1>
             <p className='text-base sm:text-lg 2xl:text-xl max-w-3xl mx-auto text-zinc-300 text-center'>
                 Top trending 🚀 and hot 🔥 NFTs collection for you, start buying now
@@ -68,7 +63,7 @@ function Collections({ home }) {
                     )}
                 </div>
             }
-            <div className='p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center items-stretch justify-evenly max-w-7xl mx-auto flex-wrap gap-12 lg:gap-y-16'>
+            <div className='sm:p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center items-stretch justify-evenly max-w-7xl mx-auto flex-wrap gap-12 lg:gap-y-16'>
                 {collectionList?.length > 0 && collectionList.map((item, i) => <Collection key={i + i} collection={item} />)}
             </div>
             {home && <button onClick={() => Router.push('/nft/collection/')} className='text-teal-400 border-2 border-teal-400 hover:bg-teal-600 hover:text-white hover:scale-105 px-5 py-2 rounded-3xl mt-8 text-base sm:text-lg lg:text-xl font-medium transition-all duration-200 ease-out group flex items-center mx-auto'>View More

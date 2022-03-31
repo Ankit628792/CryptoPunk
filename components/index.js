@@ -13,3 +13,5 @@ export { default as NFTs } from './NFTs'
 export { default as NFT } from './NFT'
 export { default as SingleNFT } from './SingleNFT'
 export { default as Cards } from './Cards'
+export { default as Connect } from './Connect'
+

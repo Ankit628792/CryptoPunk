@@ -5,7 +5,7 @@ const items = [
     id: 1,
     imgSrc: '/assets/icons/wallet.png',
     heading: "Set up your wallet",
-    desc: "Login using your crypto wallet account to sell and buy NFTs"
+    desc: "Login using your crypto wallet account to sell and buy NFTs",
   },
   {
     id: 2,
@@ -31,19 +31,19 @@ const items = [
 
 const users = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-function index() {
+function index({ collectionList, nftList }) {
   return (
     <>
       <section className='p-10 text-center flex flex-col items-center justify-center relative'>
         <h1 className='text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl font-bold max-w-2xl 2xl:max-w-3xl'><span className='text-teal-300'>Discover</span> Arts, Collect and Sell Rare <span className='text-teal-300'>NFTs</span></h1>
-        {/* <p className='max-w-3xl text-lg md:text-xl text-gray-400'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis earum quos, aperiam nam dolore nisi mollitia corporis! Voluptates, iusto blanditiis.</p> */}
+        <p className='max-w-3xl text-lg md:text-xl text-gray-400'>The amazing digital marketplace for crypto collectibles and non-fungible tokens (NFTs). Buy, sell, and discover exclusive digital items.</p>
       </section>
 
-      <Collections home />
+      <Collections home collectionList={collectionList} />
 
       <Cards title='Create and sell your NFTs ✨' description='In just some following steps' items={items} />
 
-      <NFTs home />
+      <NFTs home nftList={nftList} />
 
       {/* <section className='p-10 sm:my-20 text-center'>
         <h1 className='capitalize text-3xl sm:text-4xl 2xl:text-5xl font-semibold text-center'>Top Creators of this week</h1>
@@ -67,3 +67,14 @@ function index() {
 }
 
 export default index
+
+export async function getServerSideProps() {
+  const collection = await fetch(`${process.env.host}/api/collection?limit=6`).then(res => res.json());
+  const nft = await fetch(`${process.env.host}/api/nft?limit=8`).then(res => res.json())
+  return {
+    props: {
+      collectionList: collection?.data,
+      nftList: nft?.data
+    }
+  }
+}

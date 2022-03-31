@@ -10,6 +10,11 @@ import { useMoralis } from "react-moralis";
 function Navbar() {
     const { authenticate, isAuthenticated, logout, user } = useMoralis();
 
+    const [seed, setSeed] = useState('');
+    useEffect(() => {
+        setSeed(Math.floor(Math.random() * 5000))
+    }, []);
+
     const registerUser = async () => {
 
         const data = { username: user?.get('username'), walletAddress: user?.get("ethAddress") }
@@ -153,8 +158,12 @@ function Navbar() {
                         </Dropdown>
                         {/* <Dropdown overlay={userNav} arrow placement="bottomRight"> */}
                         <Space className='text-lg'>
-                            {user && (user?.get("ethAddress")?.slice(0, 4) + "..." + user?.get("ethAddress")?.slice(user?.get("ethAddress")?.length - 4, user?.get("ethAddress").length))}
-                            <Avatar onClick={() => isAuthenticated ? logout() : authenticate({ provider: "metamask", signingMessage: 'Connect to CryptoPunk' })} className='cursor-pointer' size={'large'} style={{ backgroundColor: '#14b8a6' }} icon={<UserOutlined />} />
+                            {user && isAuthenticated ? <> {(user?.get("ethAddress")?.slice(0, 4) + "..." + user?.get("ethAddress")?.slice(user?.get("ethAddress")?.length - 4, user?.get("ethAddress").length))}
+                                <Avatar onClick={() => logout()} src={<img src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />} className='cursor-pointer' size={'large'} style={{ backgroundColor: '#14b8a6' }} />
+                            </>
+                                :
+                                <button className='btn' onClick={() => authenticate({ provider: "metamask", signingMessage: 'Connect to CryptoPunk' })}>Connect</button>
+                            }
                         </Space>
                         {/* </Dropdown> */}
                     </Space>
@@ -168,9 +177,12 @@ function Navbar() {
                     <span className='hamburger-inner'> <span className='hamburger-icon shadow-lg fixed'></span> </span>
                     <ul>
                         <li onClick={handleCheckedSate}> <Link href="/">Home</Link></li>
-                        <li onClick={handleCheckedSate}> <Link href="/nft/collection/">Top Collections</Link></li>
-                        <li onClick={handleCheckedSate}> <Link href="/nft/">Top NFTs</Link></li>
-                        <li onClick={handleCheckedSate}> <Link href="/market/">Market</Link></li>
+                        <li onClick={handleCheckedSate}> <Link href="/nft/create">Mint NFT</Link></li>
+                        <li onClick={handleCheckedSate}> <Link href="/nft/collection/create">Create Collection</Link></li>
+                        <li onClick={handleCheckedSate}> <Link href="/nft/">NFT Marketplace</Link></li>
+                        <li onClick={handleCheckedSate}> <Link href="/market/">Crypto Market</Link></li>
+                        <li onClick={handleCheckedSate}> <Link href="/market/exchanges">Exchanges</Link></li>
+                        <li onClick={() => { handleCheckedSate(); logout() }}> <Link href="">Logout</Link></li>
                     </ul>
                 </label>
             </div>

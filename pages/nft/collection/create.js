@@ -6,10 +6,11 @@ const { Option } = Select
 
 import { UploadOutlined } from '@ant-design/icons';
 import { useState } from "react";
+import { Connect } from "../../../components";
 
 function create() {
 
-    const { isAuthenticated, authenticate, user } = useMoralis();
+    const { isAuthenticated, user } = useMoralis();
 
     const [isSending, setIsSending] = useState(false)
 
@@ -67,10 +68,7 @@ function create() {
     return (
         <>
             {!isAuthenticated ?
-                <>
-                    <h1 className="capitalize text-3xl sm:text-4xl 2xl:text-5xl font-semibold text-center py-3 sm:py-5 relative before:content-[''] before:w-60 before:h-1 before:bg-teal-300 before:absolute before:bottom-0 before:left-1/2 transform before:-translate-x-1/2 before:rounded-full">Connect to wallet to continue</h1>
-                    <button className='btn block mx-auto' onClick={() => authenticate({ provider: "metamask", signingMessage: 'Connect to CryptoPunk' })}>Connect Wallet</button>
-                </>
+                <Connect />
                 :
                 <>
                     <h1 className="capitalize text-3xl sm:text-4xl 2xl:text-5xl font-semibold text-center py-3 sm:py-5 relative before:content-[''] before:w-60 before:h-1 before:bg-teal-300 before:absolute before:bottom-0 before:left-1/2 transform before:-translate-x-1/2 before:rounded-full">Create A Collection</h1>
