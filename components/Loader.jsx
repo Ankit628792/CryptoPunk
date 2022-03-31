@@ -1,16 +1,27 @@
-import React from 'react';
-import { Spin, Typography } from 'antd';
+import React from 'react'
 
-const Loader = ({ text }) => (
-  <>
-    <div className="h-[80vh] flex items-center justify-center flex-col">
-      <div className="loader__container">
-        <div className="loader"><span></span></div>
-      </div>
-      {/* {text && <Typography.Title level={3}>{text}</Typography.Title>}
-    <Spin size='large' /> */}
-    </div>
-  </>
-);
+function Loader() {
+    function createMarkup() {
+        return {
+            __html: `
+        <span style="--i:1"></span>
+        <span style="--i:2"></span>
+        <span style="--i:3"></span>
+        <span style="--i:4"></span>
+        <span style="--i:5"></span>
+        <span style="--i:6"></span>
+        <span style="--i:7"></span>
+        <span style="--i:8"></span>
+        <span style="--i:9"></span>
+        <span style="--i:10"></span>
+      `};
+    }
+    return (
+        <div className="h-[80vh] flex items-center justify-center flex-col">
+            <div class="loader" dangerouslySetInnerHTML={createMarkup()}>
+            </div>
+        </div>
+    )
+}
 
-export default Loader;
+export default Loader
