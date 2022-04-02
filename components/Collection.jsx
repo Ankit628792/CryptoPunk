@@ -10,7 +10,7 @@ function Collection({ collection }) {
                     <img className='w-16 h-16 object-cover rounded-full border-4 border-solid border-gray-300' src={collection?.logoURL} alt="" />
                     <h1 className='font-semibold'>{collection?.name}</h1>
                     {/* <p className='transform -translate-y-2 text-base'>by <span className='text-teal-400 cursor-pointer'>QuirkiesDeployer</span></p> */}
-                    <p className='transform -translate-y-4 text-center text-gray-200'>{collection?.description?.slice(0, 20)}</p>
+                    <p className='transform -translate-y-4 text-center text-gray-200'>{collection?.description?.slice(0, 50)}...</p>
                 </div>
             </div>
         </div>
