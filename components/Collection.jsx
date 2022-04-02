@@ -8,9 +8,9 @@ function Collection({ collection }) {
             <div className='absolute bottom-0 left-0 w-full h-44 backdrop-filter backdrop-blur-sm bg-black bg-opacity-40 group-hover:scale-95 transition-all duration-300 ease-out'>
                 <div className='h-full w-full flex items-center justify-center flex-col text-lg transform -translate-y-4 p-5'>
                     <img className='w-16 h-16 object-cover rounded-full border-4 border-solid border-gray-300' src={collection?.logoURL} alt="" />
-                    <h1 className='font-semibold'>{collection?.name}</h1>
+                    <h1 className='font-semibold my-2'>{collection?.name}</h1>
                     {/* <p className='transform -translate-y-2 text-base'>by <span className='text-teal-400 cursor-pointer'>QuirkiesDeployer</span></p> */}
-                    <p className='transform -translate-y-4 text-center text-gray-200'>{collection?.description?.slice(0, 50)}...</p>
+                    <p className='transform -translate-y-4 text-center text-gray-200 my-1'>{collection?.description?.slice(0, 80)}...</p>
                 </div>
             </div>
         </div>
