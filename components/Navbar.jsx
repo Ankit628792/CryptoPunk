@@ -6,6 +6,7 @@ import Text from 'antd/lib/typography/Text';
 import Router from 'next/router';
 import Link from 'next/link';
 import { useMoralis } from "react-moralis";
+import { shortenAddress } from '../utils/contract';
 
 function Navbar() {
     const { authenticate, isAuthenticated, logout, user } = useMoralis();
@@ -88,23 +89,33 @@ function Navbar() {
 
     const userNav = (
         <Menu style={{ borderRadius: '16px', padding: '8px' }}>
-            <Menu.Item key={1} style={{ borderRadius: '12px' }}>
+            {/* <Menu.Item key={1} style={{ borderRadius: '12px' }}>
                 <a className='text-lg capitalize' onClick={() => Router.push("/")}>
                     Profile
                 </a>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key={2} style={{ borderRadius: '12px' }}>
+                <a className='text-lg capitalize' onClick={() => Router.push("/account/mynft")}>
+                    My NFTs
+                </a>
+            </Menu.Item>
+            <Menu.Item key={3} style={{ borderRadius: '12px' }}>
+                <a className='text-lg capitalize' onClick={() => Router.push("/account/mycollection")}>
+                    My Collection
+                </a>
+            </Menu.Item>
+            <Menu.Item key={3} style={{ borderRadius: '12px' }}>
                 <a className='text-lg capitalize' onClick={() => Router.push("/nft/collection/create")}>
                     Create Collection
                 </a>
             </Menu.Item>
-            <Menu.Item key={3} style={{ borderRadius: '12px' }}>
-                <a className='text-lg capitalize' onClick={() => Router.push("/")}>
+            <Menu.Item key={4} style={{ borderRadius: '12px' }}>
+                <a className='text-lg capitalize' onClick={() => Router.push("/account/transactions")}>
                     Transactions
                 </a>
             </Menu.Item>
-            <Menu.Item key={4} style={{ borderRadius: '12px' }}>
-                <a className='text-lg capitalize' onClick={() => Router.push("/")}>
+            <Menu.Item key={5} style={{ borderRadius: '12px' }}>
+                <a className='text-lg capitalize' onClick={() => logout()}>
                     Logout
                 </a>
             </Menu.Item>
@@ -120,26 +131,12 @@ function Navbar() {
                 </div>
                 <nav className='flex-shrink-0 hidden sm:inline-flex'>
                     <Space size={40}>
-                        {/* <Dropdown overlay={nfts} arrow placement="bottomCenter"> */}
-                        {/* <Text className='cursor-pointer text-lg flex items-center space-x-1' onClick={() => Router.push('/')}>
-                            Prediction
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                                </svg>
-                        </Text> */}
                         <Text className='cursor-pointer text-lg flex items-center space-x-1' onClick={() => Router.push('/nft/create')}>
                             Mint NFT
-                            {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                                </svg> */}
                         </Text>
-                        <Text className='cursor-pointer text-lg flex items-center space-x-1' onClick={() => Router.push('/nft/collection/create')}>
-                            Create Collection
-                            {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                                </svg> */}
+                        <Text className='cursor-pointer text-lg flex items-center space-x-1' onClick={() => Router.push('/transfer/')}>
+                            Transfer
                         </Text>
-                        {/* </Dropdown> */}
                         <Dropdown overlay={nfts} arrow placement="bottom">
                             <Text className='cursor-pointer text-lg flex items-center space-x-1'>
                                 NFT
@@ -156,16 +153,17 @@ function Navbar() {
                                 </svg>
                             </Text>
                         </Dropdown>
-                        {/* <Dropdown overlay={userNav} arrow placement="bottomRight"> */}
-                        <Space className='text-lg'>
-                            {user && isAuthenticated ? <> {(user?.get("ethAddress")?.slice(0, 4) + "..." + user?.get("ethAddress")?.slice(user?.get("ethAddress")?.length - 4, user?.get("ethAddress").length))}
-                                <Avatar onClick={() => logout()} src={<img src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />} className='cursor-pointer' size={'large'} style={{ backgroundColor: '#14b8a6' }} />
-                            </>
-                                :
-                                <button className='btn' onClick={() => authenticate({ provider: "metamask", signingMessage: 'Connect to CryptoPunk' })}>Connect</button>
-                            }
-                        </Space>
-                        {/* </Dropdown> */}
+                        {user && isAuthenticated ?
+                            <Dropdown overlay={userNav} arrow placement="bottomRight">
+                                <Space className='text-lg'>
+                                    <> {shortenAddress(user?.get('ethAddress'))}
+                                        <Avatar src={<img src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />} className='cursor-pointer' size={'large'} style={{ backgroundColor: '#14b8a6' }} />
+                                    </>
+                                </Space>
+                            </Dropdown>
+                            :
+                            <button className='btn' onClick={() => authenticate({ provider: "metamask", signingMessage: 'Connect to CryptoPunk' })}>Connect</button>
+                        }
                     </Space>
                 </nav>
             </header>
