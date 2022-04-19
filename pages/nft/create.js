@@ -9,16 +9,14 @@ const dateFormat = 'YYYY-MM-DD';
 import { UploadOutlined } from '@ant-design/icons';
 import { useState } from "react";
 import { Connect } from "../../components";
+import { pinFileToIPFS, pinJSONToIPFS, testAuthentication } from '../../utils/data';
+import { mintNFT } from '../../utils/nftContract';
+
 
 function create() {
     const { isAuthenticated, user } = useMoralis();
     const [isSending, setIsSending] = useState(false)
 
-    function other(file) {
-        if (!file) return;
-        let { response, thumbUrl, xhr, ...other } = file;
-        return other
-    }
 
     const uploadImage = async (image) => {
         let data = new FormData()
@@ -33,12 +31,52 @@ function create() {
         return res.secure_url
     }
 
+    const mintNFTData = async (file, data) => {
+        try {
+            const res = await testAuthentication();
+            if (res.status === 200) {
+                const file1 = await pinFileToIPFS(file)
+
+                //Create NFT metadata JSON
+                const rangeValue = data['date-range'];
+                const media_url = await uploadImage(file)
+
+                const metadata = {
+                    image: `https://gateway.pinata.cloud/ipfs/${file1?.IpfsHash}`,
+                    name: data.name ?? '',
+                    description: data.description ?? '',
+                    collection: data.nftCollection,
+                    media: media_url,
+                    price: data.price,
+                    dateRange: [rangeValue[0].format('YYYY-MM-DD'), rangeValue[1].format('YYYY-MM-DD')],
+                    attributes: [
+                        { "trait_type": "color", "value": "brown" },
+                        { "trait_type": "background", "value": "white" }
+                    ]
+                }
+                const pinataJSONBody = {
+                    pinataContent: metadata
+                };
+                const file2 = await pinJSONToIPFS(pinataJSONBody)
+
+                const metadataUrl = `https://gateway.pinata.cloud/ipfs/${file2?.IpfsHash}`;
+                const response = await mintNFT(metadataUrl)
+                console.log("NFT Contract details \n", response)
+                if (response?.includes('successfully')) {
+                    return { status: 201, media_url: media_url }
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const onFinish = async (values) => {
         setIsSending(true)
         const rangeValue = values['date-range'];
-        const media_url = await uploadImage(values.media?.file.originFileObj)
+        const { status, media_url } = await mintNFTData(values.media?.file.originFileObj, values)
 
-        if (media_url) {
+        if (status && media_url) {
             const formData = {
                 ...values,
                 media: media_url,
@@ -56,7 +94,7 @@ function create() {
             setIsSending(false)
             if (response.status === 201) {
                 alert(response.data)
-                window.location.reload()
+                // window.location.reload()
             }
             else {
                 alert(response.message)
@@ -85,7 +123,7 @@ function create() {
                             onFinish={onFinish}
                             initialValues={{
                                 'blockchain': 'etherium',
-                                'price': 0.1
+                                'price': 0.001
                             }}
                             layout="vertical"
                             size='large'
@@ -125,12 +163,6 @@ function create() {
                                 name="nftCollection"
                                 label="Collection"
                                 extra="This is the collection where your item will appear. "
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please select Category!',
-                                    },
-                                ]}
                             >
                                 <Select
                                     name="nftCollection"
@@ -147,7 +179,7 @@ function create() {
                                     <Option value="music">Music</Option>
                                     <Option value="video game">Video Game</Option>
                                     <Option value="trading cards">Trading Cards</Option>
-                                    <Option value="collectibls">Collectibles</Option>
+                                    <Option value="collectibles">Collectibles</Option>
                                     <Option value="sports">Sports</Option>
                                     <Option value="memes">Memes</Option>
                                     <Option value="fashion">Fashion</Option>
@@ -179,8 +211,8 @@ function create() {
                                     }
                                 >
                                     <Option value="etherium">Etherium</Option>
-                                    <Option value="bitcoin">Bitcoin</Option>
-                                    <Option value="usdc">USDC</Option>
+                                    {/* <Option value="bitcoin">Bitcoin</Option>
+                                    <Option value="usdc">USDC</Option> */}
                                 </Select>
                             </Form.Item>
 

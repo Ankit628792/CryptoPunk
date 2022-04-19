@@ -20,7 +20,7 @@ const getAllNfts = async (req, res, next) => {
 }
 const getNft = async (req, res, next) => {
     try {
-        const response = await Nft.find({ _id: req.query.id });
+        const response = await Nft.findOne({ _id: req.query.id });
         console.log(response);
         if (response) {
             res.json({

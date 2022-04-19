@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Cards, Collections, NFTs } from '../../components'
 
 const items = [
@@ -31,7 +32,25 @@ const items = [
 
 const users = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-function index({ collectionList, nftList }) {
+function index({ collectionList }) {
+  const [nftList, setNftList] = useState([]);
+  const fetchNFT = async (users) => {
+    const res = await Promise.all(users?.map(async (user) => {
+      const data = await fetch(`https://eth-rinkeby.alchemyapi.io/v2/demo/getNFTs/?owner=${user?.walletAddress}`);
+      if (data.status === 200) {
+        return (await data.json())?.ownedNfts
+      }
+    }))
+    let nftData = [];
+    res.forEach(element => {
+      nftData.push(...element)
+    });
+    setNftList(nftData?.slice(0, 8).sort(() => Math.random() - 0.5))
+  }
+  useEffect(() => {
+    fetch('/api/user').then(res => res.json()).then(data => data && fetchNFT(data?.data)).catch(e => console.log(e))
+  }, [])
+
   return (
     <>
       <section className='p-10 text-center flex flex-col items-center justify-center relative'>
@@ -70,11 +89,9 @@ export default index
 
 export async function getServerSideProps() {
   const collection = await fetch(`${process.env.host}/api/collection?limit=6`).then(res => res.json());
-  const nft = await fetch(`${process.env.host}/api/nft?limit=8`).then(res => res.json())
   return {
     props: {
       collectionList: collection?.data,
-      nftList: nft?.data
     }
   }
 }

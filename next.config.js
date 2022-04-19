@@ -5,6 +5,7 @@ module.exports = {
     appId: process.env.MORALIS_APP_ID,
     serverUrl: process.env.MORALIS_SERVER,
     host: process.env.HOST,
+    moralisApiKey: process.env.MORALIS_API_KEY,
     speedyNode: process.env.SPEEDY_NODE,
     contractAddress: process.env.CONTRACT_ADDRESS,
     nftContractAddress: process.env.NFT_CONTRACT_ADDRESS,

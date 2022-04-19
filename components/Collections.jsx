@@ -45,15 +45,15 @@ const category = [
     },
 ]
 
-function Collections({ home, collectionList }) {
+function Collections({ home, owner, collectionList }) {
     const [collection, setCollection] = useState('')
     return (
         <section className={`p-5 sm:p-10 ${home && 'sm:my-20'} text-center`}>
-            <h1 className='capitalize text-3xl sm:text-4xl 2xl:text-5xl font-semibold text-center'>Hot Drops 🔥</h1>
-            <p className='text-base sm:text-lg 2xl:text-xl max-w-3xl mx-auto text-zinc-300 text-center'>
+            <h1 className='capitalize text-3xl sm:text-4xl 2xl:text-5xl font-semibold text-center'>{owner ? 'My Collections' : `Hot Drops 🔥`}</h1>
+            {!owner && <p className='text-base sm:text-lg 2xl:text-xl max-w-3xl mx-auto text-zinc-300 text-center'>
                 Top trending 🚀 and hot 🔥 NFTs collection for you, start buying now
-            </p>
-            {!home &&
+            </p>}
+            {(!home && !owner) &&
                 <div className='scrollbar__hidden overflow-x-auto flex items-center gap-x-5 md:gap-x-10 py-5 mt-5 max-w-7xl mx-auto'>
                     <span onClick={() => setCollection('')} value='' className={`capitalize bg-teal-600 text-white  font-medium px-4 py-1.5 cursor-pointer rounded-3xl text-base md:text-lg hover:scale-105 transition-transform duration-150 ease-out ${!collection && 'bg-gray-50 text-gray-700'}`}>All</span>
                     {category.map(item =>

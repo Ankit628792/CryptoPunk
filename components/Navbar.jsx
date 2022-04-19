@@ -94,12 +94,12 @@ function Navbar() {
                     Profile
                 </a>
             </Menu.Item> */}
-            <Menu.Item key={2} style={{ borderRadius: '12px' }}>
+            <Menu.Item key={1} style={{ borderRadius: '12px' }}>
                 <a className='text-lg capitalize' onClick={() => Router.push("/account/mynft")}>
                     My NFTs
                 </a>
             </Menu.Item>
-            <Menu.Item key={3} style={{ borderRadius: '12px' }}>
+            <Menu.Item key={2} style={{ borderRadius: '12px' }}>
                 <a className='text-lg capitalize' onClick={() => Router.push("/account/mycollection")}>
                     My Collection
                 </a>

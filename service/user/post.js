@@ -2,7 +2,7 @@ const { default: User } = require("../../models/user");
 
 const createUser = async (req, res, next) => {
     try {
-        const getUser = await User.find(req.body)
+        const getUser = await User.findOne(req.body)
         if (!getUser) {
             const user = new User({
                 ...req.body,

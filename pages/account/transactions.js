@@ -23,6 +23,7 @@ function transactions() {
     useEffect(() => {
         user && fetchTransactions()
     }, [user])
+    
     return (
         <>
             <h1 className='capitalize mt-5 text-center text-3xl sm:text-4xl 2xl:text-5xl font-bold'>Latest Transactions</h1>

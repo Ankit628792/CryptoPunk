@@ -1,10 +1,12 @@
 import { ethers } from "ethers";
-import { nftContractABI, nftContractAddress } from "./contract";
+import NFTs from './NFTs.json'
+
+export const nftContractAddress = process.env.nftContractAddress
+export const nftContractABI = NFTs.abi
 
 export const createNFTContract = () => {
-    const provider = new ethers.providers.JsonRpcProvider(
-        process.env.speedyNode
-    )
+    const { ethereum } = window
+    const provider = new ethers.providers.Web3Provider(ethereum)
     const signer = provider.getSigner();
     const nftContract = new ethers.Contract(nftContractAddress, nftContractABI, signer)
 
@@ -16,7 +18,7 @@ export const mintNFT = async (metadataUrl) => {
         const contract = createNFTContract()
         const response = await contract.functions.mint(metadataUrl)
         const tokenId = response.nonce;
-        return `NFT successfully minted. \nContract address - ${nftContractAddress} \nToken Id - ${tokenId} \nHash - ${response.hash}`
+        return `NFT successfully minted. \nContract address - ${nftContractAddress} \nHash - ${response.hash}`
     } catch (error) {
         return error
     }

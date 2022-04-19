@@ -1,13 +1,9 @@
 import Transactions from './Transactions.json'
-import NFTs from './NFTs.json'
 
 export const contractAddress = process.env.contractAddress
 export const contractABI = Transactions.abi
 
-export const nftContractAddress = process.env.nftContractAddress
-export const nftContractABI = NFTs.abi
-
-export const shortenAddress = (address) => `${address.slice(0, 5)}...${address.slice(address.length - 4)}`
+export const shortenAddress = (address) => `${address?.slice(0, 5)}...${address?.slice(address?.length - 4)}`
 
 import { ethers } from 'ethers'
 
@@ -27,7 +23,6 @@ export const sendTransaction = async (formData, setIsLoading) => {
         const { addressTo, amount, message, keyword, currentAccount } = formData;
         if (!currentAccount) return
         const parsedAmount = ethers.utils.parseEther(amount)
-        console.log(formData)
         await ethereum.request({
             method: 'eth_sendTransaction',
             params: [{
