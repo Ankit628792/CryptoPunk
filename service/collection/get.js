@@ -1,9 +1,9 @@
 const { default: Collection } = require("../../models/collection");
 
 const getAllCollections = async (req, res, next) => {
-    const query = req.query?.userId ? { user: req.query?.userId } : null
+    const query = req.query?.userId ? { user: req.query?.userId } : req.query.walletAddress ? { walletAddress: req.query.walletAddress } : null
     try {
-        const response = await Collection.find(query).limit(req.query.limit).populate("User");
+        const response = await Collection.find(query).limit(req.query.limit);
         console.log("checking connections ", response);
         res.json({
             data: response,
@@ -23,7 +23,7 @@ const getAllCollections = async (req, res, next) => {
 
 const getCollection = async (req, res, next) => {
     try {
-        const response = await Collection.find({ _id: req.query.id }).populate("User");
+        const response = await Collection.find({ _id: req.query.id })
         console.log(response);
         res.json({
             data: response,

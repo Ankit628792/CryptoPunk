@@ -8,7 +8,7 @@ function SingleNFT({ nft, transactions }) {
     return (
         <div className='max-w-[80rem] mx-auto p-8 lg:p-10 text-lg'>
             <div className='flex flex-col md:flex-row md:items-center gap-10 xl:gap-x-20 py-5'>
-                <img className='max-h-96 max-w-sm 2xl:max-h-[500px] 2xl:max-w-[500px] rounded-lg object-cover opac' src={metadata?.image} alt="" />
+                <img className='max-h-96 max-w-sm 2xl:max-h-[500px] 2xl:max-w-[500px] rounded-lg object-cover opac' src={metadata?.media} alt="" />
                 <div className='text-teal-50 w-full md:pl-5 2xl:pl-10'>
                     <p className='text-teal-300 mb-2 capitalize'>{metadata?.collection}</p>
                     <h1 className='text-3xl md:text-4xl 2xl:text-5xl'>{metadata?.name}</h1>
@@ -70,14 +70,14 @@ function SingleNFT({ nft, transactions }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                    {transactions?.map(item => <>
-                                <tr className='text-center'>
-                                    <td><ShoppingCartOutlined className='' /> Mint</td>
-                                    <td className='text-teal-100'>{item?.value}ETH</td>
-                                    <td>{shortenAddress(item?.from_address)}</td>
-                                    <td>{shortenAddress(item?.to_address)}</td>
-                                    <td>{new Date(item?.block_timestamp).getDay()} ago</td>
-                                </tr >
+                                {transactions?.map(item => <>
+                                    <tr key={item?.block_timestamp} className='text-center'>
+                                        <td><ShoppingCartOutlined className='' /> Mint</td>
+                                        <td className='text-teal-100'>{item?.value}ETH</td>
+                                        <td>{shortenAddress(item?.from_address)}</td>
+                                        <td>{shortenAddress(item?.to_address)}</td>
+                                        <td>{new Date(item?.block_timestamp).getDay()} ago</td>
+                                    </tr >
                                 </>)}
                             </tbody>
                         </table>

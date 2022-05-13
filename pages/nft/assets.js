@@ -14,7 +14,7 @@ function assets() {
         res.forEach(element => {
             nftData.push(...element)
         });
-        setNftList(nftData.sort(() => Math.random() - 0.5))
+        setNftList(nftData?.sort(() => Math.random() - 0.5))
     }
     useEffect(() => {
         fetch('/api/user').then(res => res.json()).then(data => data && fetchNFT(data?.data)).catch(e => console.log(e))

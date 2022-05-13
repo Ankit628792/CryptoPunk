@@ -1,4 +1,5 @@
 const { default: Nft } = require("../../models/nft");
+const { default: User } = require("../../models/user");
 
 const createNft = async (req, res, next) => {
     try {

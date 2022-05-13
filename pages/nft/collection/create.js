@@ -59,7 +59,7 @@ function create() {
         setIsSending(false)
         if (response.status === 201) {
             alert(response.data)
-            // window.location.reload()
+            window.location.reload()
         }
         else {
             alert(response.message)

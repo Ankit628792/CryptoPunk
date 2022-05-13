@@ -16,17 +16,17 @@ import { mintNFT } from '../../utils/nftContract';
 function create() {
     const { isAuthenticated, user } = useMoralis();
     const [isSending, setIsSending] = useState(false);
-    const [userCollection , setUserCollection] = useState([]);
+    const [userCollection, setUserCollection] = useState([]);
 
-    useEffect(()=>{
-        const resp = fetch(`/api/usercollection`).then((data)=>{
-            return data.json();    
-        }).then((resp)=>{
+    useEffect(() => {
+        const resp = fetch(`/api/usercollection`).then((data) => {
+            return data.json();
+        }).then((resp) => {
             console.log(resp);
-            
+
             setUserCollection(resp.data);
         })
-    },[user]);
+    }, [user]);
     const uploadImage = async (image) => {
         let data = new FormData()
         data.append("file", image)
@@ -71,12 +71,13 @@ function create() {
                 const metadataUrl = `https://gateway.pinata.cloud/ipfs/${file2?.IpfsHash}`;
                 const response = await mintNFT(metadataUrl)
                 console.log("NFT Contract details \n", response)
-                if (response?.includes('successfully')) {
+                if (response && response?.includes('successfully')) {
                     return { status: 201, media_url: media_url }
                 }
             }
         } catch (error) {
             console.log(error)
+            return { status: 400, media_url: null }
         }
     }
 
@@ -100,10 +101,11 @@ function create() {
                 body: JSON.stringify(formData)
             })
             const response = await res.json()
+            console.log(response)
             setIsSending(false)
-            if (response.status === 201) {
+            if (response?.status === 201) {
                 alert(response.data)
-                // window.location.reload()
+                window.location.reload()
             }
             else {
                 alert(response.message)
@@ -182,15 +184,15 @@ function create() {
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                     }
-                                >   
-                                {userCollection?.length && userCollection.map((coll)=>{
-                                   return <Option className="capitalize" value={coll.name}>{coll.name}</Option>
-                                })
-                                }
+                                >
+                                    {userCollection?.length && userCollection.map((coll) => {
+                                        return <Option className="capitalize" value={coll.name}>{coll.name}</Option>
+                                    })
+                                    }
 
-                                <Option value="others">Others</Option>
-                            </Select>
-                            
+                                    <Option value="others">Others</Option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item

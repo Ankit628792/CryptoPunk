@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useMoralis } from 'react-moralis'
-import { Connect, NFTs } from '../../components'
+import { Connect, Loader, NFTs } from '../../components'
+
 
 function mynft() {
     const { user, isAuthenticated } = useMoralis()
@@ -16,10 +17,12 @@ function mynft() {
 
     return (
         <>
-            <h1>NFT List</h1>
-            {NFT?.length && <>
+            {NFT?.length ? <>
                 <NFTs owner nftList={NFT} />
-            </>}
+            </>
+                :
+                <Loader />
+            }
         </>
     )
 }

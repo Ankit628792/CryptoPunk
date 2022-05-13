@@ -1,5 +1,8 @@
 module.exports = {
   reactStrictMode: true,
+  images: {
+    domains: ['sample-api-data.vercel.app', 'images.unsplash.com', 'res.cloudinary.com', 'source.unsplash.com'],
+  },
   env: {
     dbURI: process.env.MONGODB_URI,
     appId: process.env.MORALIS_APP_ID,
