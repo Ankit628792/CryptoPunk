@@ -75,7 +75,7 @@ export const checkIfTransactionsExists = async () => {
     try {
         const transactionsContract = createEthereumContract();
         const currentTransactionCount = await transactionsContract.getTransactionCount();
-        window.localStorage.setItem("transactionCount", currentTransactionCount);
+        window?.localStorage?.setItem("transactionCount", currentTransactionCount);
         const data = await getAllTransactions()
         return data
     } catch (error) {

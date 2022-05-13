@@ -62,7 +62,7 @@ function index() {
             formData.currentAccount = user.get('ethAddress')
             fetchTransactions();
         }
-        setTransactionCount(localStorage.getItem('transactionCount'))
+        setTransactionCount(localStorage?.getItem('transactionCount'))
     }, [transactionCount, user])
     return (
         <>
