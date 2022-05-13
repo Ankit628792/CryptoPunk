@@ -35,9 +35,10 @@ function create() {
 
     const onFinish = async (values) => {
         setIsSending(true)
-        let logo_url = await uploadImage(values.logo?.file.originFileObj)
-        let featured_url = await uploadImage(values.featured?.file.originFileObj)
-        let banner_url = await uploadImage(values.banner?.file.originFileObj)
+        let logo_url = await uploadImage(values.logo?.file.originFileObj);
+        let featured_url = await uploadImage(values.featured?.file.originFileObj);
+        let banner_url = await uploadImage(values.banner?.file.originFileObj);
+        
         const formData = {
             ...values,
             logoURL: logo_url,
@@ -45,19 +46,20 @@ function create() {
             bannerURL: banner_url,
             user: user?.get("ethAddress")
         }
-
+        
+        const {logo, banner,featured , ...formDataResponse} = formData;
         const res = await fetch('/api/collection', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formDataResponse)
         })
         const response = await res.json()
         setIsSending(false)
         if (response.status === 201) {
             alert(response.data)
-            window.location.reload()
+            // window.location.reload()
         }
         else {
             alert(response.message)
@@ -76,10 +78,6 @@ function create() {
                         <Form
                             name="validate_other"
                             onFinish={onFinish}
-                            initialValues={{
-                                'blockchain': 'etherium',
-                                'earning': 2.5,
-                            }}
                             layout="vertical"
                             size='large'
                             className='gap-y-10'
@@ -132,33 +130,7 @@ function create() {
                             </Form.Item>
 
 
-                            <Form.Item
-                                name="blockchain"
-                                label="Blockchain"
-                                extra="Select the blockchain where you'd like new items from this collection to be added by default"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please select blockchain!',
-                                    },
-                                ]}
-                            >
-                                <Select
-                                    showSearch
-                                    name="blockchain"
-                                    className='border border-zinc-700'
-                                    placeholder="Select blockchain"
-                                    optionFilterProp="children"
-                                    filterOption={(input, option) =>
-                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                    }
-                                >
-                                    <Option value="etherium">Etherium</Option>
-                                    <Option value="bitcoin">Bitcoin</Option>
-                                    <Option value="usdc">USDC</Option>
-                                </Select>
-                            </Form.Item>
-
+                           
                             <Form.Item
                                 name="category"
                                 label="Category"
@@ -196,13 +168,6 @@ function create() {
                                 </Select>
                             </Form.Item>
 
-                            <Form.Item name="earning" label="Creator Earning"
-                                extra="Collect a fee when a user re-sells an item you originally created. This is deducted from the final sale price and paid monthly to a payout address of your choosing."
-                                rules={[{ required: true }]}>
-                                <InputNumber min={1} name="earning" max={10}
-                                    formatter={value => `${value}%`}
-                                    parser={value => value.replace('%', '')} />
-                            </Form.Item>
 
                             <Form.Item>
                                 <Button type="primary" htmlType="submit" disabled={isSending}>

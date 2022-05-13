@@ -6,10 +6,8 @@ const CollectionSchema = new mongoose.Schema({
     featureURL: { type: String },
     bannerURL: { type: String },
     description: { type: String },
-    blockchain: { type: String },
     category: { type: Array },
-    earning: { type: Number },
-    user: { type: String }
+    user: { type: mongoose.Schema.Types.ObjectId , ref: "User" }
 },
     {
         timestamps: true

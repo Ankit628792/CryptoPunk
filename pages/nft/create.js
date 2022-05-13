@@ -7,7 +7,7 @@ const { RangePicker } = DatePicker;
 const dateFormat = 'YYYY-MM-DD';
 
 import { UploadOutlined } from '@ant-design/icons';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Connect } from "../../components";
 import { pinFileToIPFS, pinJSONToIPFS, testAuthentication } from '../../utils/data';
 import { mintNFT } from '../../utils/nftContract';
@@ -15,9 +15,18 @@ import { mintNFT } from '../../utils/nftContract';
 
 function create() {
     const { isAuthenticated, user } = useMoralis();
-    const [isSending, setIsSending] = useState(false)
+    const [isSending, setIsSending] = useState(false);
+    const [userCollection , setUserCollection] = useState([]);
 
-
+    useEffect(()=>{
+        const resp = fetch(`/api/usercollection`).then((data)=>{
+            return data.json();    
+        }).then((resp)=>{
+            console.log(resp);
+            
+            setUserCollection(resp.data);
+        })
+    },[user]);
     const uploadImage = async (image) => {
         let data = new FormData()
         data.append("file", image)
@@ -30,7 +39,7 @@ function create() {
         let res = await resp.json();
         return res.secure_url
     }
-
+    console.log(userCollection);
     const mintNFTData = async (file, data) => {
         try {
             const res = await testAuthentication();
@@ -173,20 +182,15 @@ function create() {
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                     }
-                                >
-                                    <Option value="art">Art</Option>
-                                    <Option value="avatars">Avatars</Option>
-                                    <Option value="music">Music</Option>
-                                    <Option value="video game">Video Game</Option>
-                                    <Option value="trading cards">Trading Cards</Option>
-                                    <Option value="collectibles">Collectibles</Option>
-                                    <Option value="sports">Sports</Option>
-                                    <Option value="memes">Memes</Option>
-                                    <Option value="fashion">Fashion</Option>
-                                    <Option value="event tickets">Event tickets</Option>
-                                    <Option value="real-world assets">Real-world assets</Option>
-                                    <Option value="others">Others</Option>
-                                </Select>
+                                >   
+                                {userCollection?.length && userCollection.map((coll)=>{
+                                   return <Option className="capitalize" value={coll.name}>{coll.name}</Option>
+                                })
+                                }
+
+                                <Option value="others">Others</Option>
+                            </Select>
+                            
                             </Form.Item>
 
                             <Form.Item
