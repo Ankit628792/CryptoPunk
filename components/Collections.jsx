@@ -1,52 +1,62 @@
 import { useState } from 'react'
 import Collection from './Collection'
 import Router from 'next/router'
+import Loader from './Loader'
 
 const category = [
     {
         id: 1,
-        name: 'music'
-    },
-    {
-        id: 2,
-        name: 'sports'
-    },
-    {
-        id: 3,
         name: 'art'
     },
     {
+        id: 2,
+        name: 'avatars'
+    },
+    {
+        id: 3,
+        name: 'music'
+    },
+    {
         id: 4,
-        name: 'photography'
+        name: 'video game'
     },
     {
         id: 5,
-        name: 'gaming'
+        name: 'trading cards'
     },
     {
         id: 6,
-        name: 'Marvel studio'
+        name: 'collectibls'
     },
     {
         id: 7,
-        name: 'sports 2.0'
+        name: 'sports'
     },
     {
         id: 9,
-        name: 'photography'
+        name: 'memes'
     },
     {
         id: 10,
-        name: 'gaming 2.0'
+        name: 'fashion'
     },
     {
         id: 11,
-        name: 'Marvel studio Version 2.09'
+        name: 'event tickets',
+    },
+    {
+        id: 12,
+        name: 'real-world assets',
+    },
+    {
+        id: 13,
+        name: 'others',
     },
 ]
 
 function Collections({ home, owner, collectionList }) {
     const [collection, setCollection] = useState('')
+
     return (
         <section className={`p-5 sm:p-10 ${home && 'sm:my-20'} text-center`}>
             <h1 className='capitalize text-3xl sm:text-4xl 2xl:text-5xl font-semibold text-center'>{owner ? 'My Collections' : `Hot Drops 🔥`}</h1>
@@ -63,9 +73,9 @@ function Collections({ home, owner, collectionList }) {
                     )}
                 </div>
             }
-            <div className='sm:p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center items-stretch justify-evenly max-w-7xl mx-auto flex-wrap gap-12 lg:gap-y-16'>
-                {collectionList?.length > 0 && collectionList.map((item, i) => <Collection key={i + i} collection={item} />)}
-            </div>
+            {collectionList?.length > 0 ? <div className='sm:p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center items-stretch justify-evenly max-w-7xl mx-auto flex-wrap gap-12 lg:gap-y-16'>
+                {collectionList.map((item, i) => { if (item.category.includes(collection) || collection == '') return <Collection key={i + i} collection={item} /> })}
+            </div> : <Loader />}
             {home && <button onClick={() => Router.push('/nft/collection/')} className='text-teal-400 border-2 border-teal-400 hover:bg-teal-600 hover:text-white hover:scale-105 px-5 py-2 rounded-3xl mt-8 text-base sm:text-lg lg:text-xl font-medium transition-all duration-200 ease-out group flex items-center mx-auto'>View More
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-10 transform scale-x-110 group-hover:scale-x-125 origin-left transition-transform duration-200 ease-out " viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />

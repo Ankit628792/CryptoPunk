@@ -19,14 +19,13 @@ function create() {
     const [userCollection, setUserCollection] = useState([]);
 
     useEffect(() => {
-        const resp = fetch(`/api/usercollection`).then((data) => {
+        fetch(`/api/usercollection`).then((data) => {
             return data.json();
         }).then((resp) => {
-            console.log(resp);
-
             setUserCollection(resp.data);
         })
     }, [user]);
+
     const uploadImage = async (image) => {
         let data = new FormData()
         data.append("file", image)
@@ -39,7 +38,7 @@ function create() {
         let res = await resp.json();
         return res.secure_url
     }
-    console.log(userCollection);
+
     const mintNFTData = async (file, data) => {
         try {
             const res = await testAuthentication();
@@ -101,7 +100,6 @@ function create() {
                 body: JSON.stringify(formData)
             })
             const response = await res.json()
-            console.log(response)
             setIsSending(false)
             if (response?.status === 201) {
                 alert(response.data)
@@ -186,7 +184,7 @@ function create() {
                                     }
                                 >
                                     {userCollection?.length && userCollection.map((coll) => {
-                                        return <Option className="capitalize" value={coll.name}>{coll.name}</Option>
+                                        return <Option className="capitalize" key={coll._id} value={coll.name}>{coll.name}</Option>
                                     })
                                     }
 

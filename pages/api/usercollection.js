@@ -4,10 +4,10 @@ import Collection from '../../models/collection'
 export default async function (req, res) {
     await connectDB()
     if (req.method == 'GET') {
-        const user = await User.find({walletAddress: req.query._id});
-        if(user){
-            const collection = await Collection.find({user: user._id},{name: 1, _id: 0});
-            if(collection){
+        const user = await User.find({ walletAddress: req.query._id });
+        if (user) {
+            const collection = await Collection.find({ user: user._id }, { name: 1, _id: 1, category: 1 });
+            if (collection) {
                 res.json({
                     data: collection,
                     status: {
@@ -22,9 +22,9 @@ export default async function (req, res) {
                         code: 403,
                     }
                 })
-    
+
             }
-        }else{
+        } else {
             res.json({
                 status: {
                     message: "user id doesn't exist",
@@ -33,5 +33,5 @@ export default async function (req, res) {
             })
         }
     }
-   
+
 }

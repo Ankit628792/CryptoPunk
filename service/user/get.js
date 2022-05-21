@@ -2,8 +2,7 @@ const { default: User } = require("../../models/user");
 
 const getAllUsers = async (req, res, next) => {
     try {
-        const response = await User.find();
-        console.log(response)
+        const response = await User.find().sort({_id: -1});
         res.status(200).json({
             data: response,
             message: {
@@ -23,7 +22,6 @@ const getAllUsers = async (req, res, next) => {
 const getUser = async (req, res, next) => {
     try {
         const response = await User.find({ _id: req.query.id });
-        console.log(response);
         res.json({
             data: response,
             status: {

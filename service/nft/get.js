@@ -2,7 +2,7 @@ const { default: Nft } = require("../../models/nft");
 
 const getAllNfts = async (req, res, next) => {
     try {
-        const response = await Nft.find().limit(req.query.limit)
+        const response = await Nft.find().limit(req.query.limit).sort({_id: -1})
         res.json({
             data: response,
             message: {

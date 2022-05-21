@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['sample-api-data.vercel.app', 'images.unsplash.com', 'res.cloudinary.com', 'source.unsplash.com'],
+    domains: ['sample-api-data.vercel.app', 'images.unsplash.com', 'res.cloudinary.com', 'source.unsplash.com', 'gateway.pinata.cloud'],
   },
   env: {
     dbURI: process.env.MONGODB_URI,

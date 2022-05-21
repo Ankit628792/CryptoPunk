@@ -91,7 +91,7 @@ export async function getServerSideProps() {
   const collection = await fetch(`${process.env.host}/api/collection?limit=6`).then(res => res.json());
   return {
     props: {
-      collectionList: collection?.data,
+      collectionList: collection?.data?.sort(() => Math.random() - 0.5),
     }
   }
 }
