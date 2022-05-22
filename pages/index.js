@@ -93,19 +93,19 @@ const Home = () => {
 
       <Cards title='Take full control of your crypto' description='' items={items} />
 
-      {details?.map(item =>
-        <section key={item.id} className={`px-5 sm:px-10 py-10 lg:flex lg:${item.id % 2 != 0 && 'flex-row-reverse'} items-center justify-around max-w-6xl 2xl:max-w-7xl mx-auto`}>
-          <div className='w-full text-center lg:text-left p-5 max-w-xl 2xl:max-w-2xl mx-auto'>
-            <h1 className='capitalize text-3xl sm:text-4xl 2xl:text-5xl font-bold'>{item.heading}</h1>
-            <p className='text-base sm:text-lg 2xl:text-xl max-w-3xl mx-auto text-zinc-300'>{item.desc}</p>
-            <button className="btn px-5" onClick={() => Router.push(item.link || '')}>Explore</button>
-            {/* <p className='text-base sm:text-lg 2xl:text-xl max-w-3xl mx-auto text-zinc-300'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, impedit? Tenetur illum cum tempora rem voluptates velit accusantium consectetur autem?</p> */}
-          </div>
-          <div className='w-full p-5 grid place-items-center'>
-            <img className='glow-sm h-full max-h-96 object-contain' src={item.imgSrc} alt="" />
-          </div>
-        </section>
-      )}
+//       {details?.map(item =>
+//         <section key={item.id} className={`px-5 sm:px-10 py-10 lg:flex lg:${item.id % 2 != 0 && 'flex-row-reverse'} items-center justify-around max-w-6xl 2xl:max-w-7xl mx-auto`}>
+//           <div className='w-full text-center lg:text-left p-5 max-w-xl 2xl:max-w-2xl mx-auto'>
+//             <h1 className='capitalize text-3xl sm:text-4xl 2xl:text-5xl font-bold'>{item.heading}</h1>
+//             <p className='text-base sm:text-lg 2xl:text-xl max-w-3xl mx-auto text-zinc-300'>{item.desc}</p>
+//             <button className="btn px-5" onClick={() => Router.push(item.link || '')}>Explore</button>
+//             {/* <p className='text-base sm:text-lg 2xl:text-xl max-w-3xl mx-auto text-zinc-300'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, impedit? Tenetur illum cum tempora rem voluptates velit accusantium consectetur autem?</p> */}
+//           </div>
+//           <div className='w-full p-5 grid place-items-center'>
+//             <img className='glow-sm h-full max-h-96 object-contain' src={item.imgSrc} alt="" />
+//           </div>
+//         </section>
+//       )}
 
     </>
   )
