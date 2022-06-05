@@ -1,8 +1,8 @@
-const { default: User } = require("../../models/user");
+import User from "../../models/user";
 
-const getAllUsers = async (req, res, next) => {
+export const getAllUsers = async (req, res) => {
     try {
-        const response = await User.find().sort({_id: -1});
+        const response = await User.find().sort({ _id: -1 });
         res.status(200).json({
             data: response,
             message: {
@@ -14,12 +14,12 @@ const getAllUsers = async (req, res, next) => {
         console.log(err);
         res.json({
             message: err.message,
-            status: 500
+            status: 400
         });
     }
 }
 
-const getUser = async (req, res, next) => {
+export const getUser = async (req, res) => {
     try {
         const response = await User.find({ _id: req.query.id });
         res.json({
@@ -30,11 +30,11 @@ const getUser = async (req, res, next) => {
             }
         })
     } catch (err) {
-
+        console.log(err);
+        res.json({
+            message: err.message,
+            status: 404
+        });
     }
 }
 
-module.exports = {
-    getAllUsers: getAllUsers,
-    getUser
-}

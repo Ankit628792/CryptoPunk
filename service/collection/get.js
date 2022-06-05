@@ -1,14 +1,13 @@
-const { default: Collection } = require("../../models/collection");
+import Collection from "../../models/collection";
 
-const getAllCollections = async (req, res, next) => {
+export const getAllCollections = async (req, res) => {
     const query = req.query?.userId ? { user: req.query?.userId } : req.query.walletAddress ? { walletAddress: req.query.walletAddress } : null
     try {
-        const response = await Collection.find(query).limit(req.query.limit).sort({_id: -1});
-        console.log("checking connections ", response);
+        const response = await Collection.find(query).limit(req.query.limit).sort({ _id: -1 });
         res.json({
             data: response,
             message: {
-                message: "Collection found successfully",
+                message: "Collection found",
                 status: 200
             }
         })
@@ -16,15 +15,14 @@ const getAllCollections = async (req, res, next) => {
         console.log(err);
         res.json({
             message: err.message,
-            status: 500
+            status: 400
         });
     }
 }
 
-const getCollection = async (req, res, next) => {
+export const getCollection = async (req, res) => {
     try {
         const response = await Collection.find({ _id: req.query.id })
-        console.log(response);
         res.json({
             data: response,
             status: {
@@ -33,12 +31,11 @@ const getCollection = async (req, res, next) => {
             }
         })
     } catch (err) {
-
+        console.log(err);
+        res.json({
+            message: err.message,
+            status: 400
+        });
     }
 }
 
-
-module.exports = {
-    getAllCollections,
-    getCollection,
-}

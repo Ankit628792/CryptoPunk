@@ -16,7 +16,6 @@ function transactions() {
             limit: 100
         };
         const { result } = await Web3Api.account.getTransactions(options);
-        console.log(result)
         setTransactions(result)
     };
 

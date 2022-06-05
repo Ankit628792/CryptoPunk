@@ -12,7 +12,6 @@ function mycollection() {
     user && fetch(`/api/collection?limit=100&walletAddress=${user?.get('ethAddress')}`).then(res => res.json()).then(data => setCollectionList(data?.data)).catch(e => console.log(e))
   }, [user])
 
-  console.log(collectionList)
 
   return (
     <>

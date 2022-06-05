@@ -1,31 +1,33 @@
-const { default: Nft } = require("../../models/nft");
-const { default: User } = require("../../models/user");
 
-const createNft = async (req, res, next) => {
+import User from "../../models/user"
+import Nft from "../../models/nft";
+
+export const createNft = async (req, res, next) => {
     try {
-        const user = await User.find({walletAddress: req.body.user});
-        if(user){
-            console.log(user);
-        } 
-        const nft = new Nft({
-            ...req.body,
-            user: user._id,
-        })
-        await nft.save();
-        console.log(nft);
-        res.json({
-            status: 201,
-            data: "Nft created successfully"
-        })
+        const user = await User.find({ walletAddress: req.body.user });
+        if (user) {
+            const nft = new Nft({
+                ...req.body,
+                user: user._id,
+            })
+            await nft.save();
+            res.json({
+                status: 201,
+                data: "Nft created successfully"
+            })
+        }
+        else {
+            console.log(err.message);
+            res.json({
+                status: 400,
+                message: err.message,
+            });
+        }
     } catch (err) {
         console.log(err.message);
         res.json({
-            status: 500,
+            status: 400,
             message: err.message,
         });
     }
-}
-
-module.exports = {
-    createNft,
 }

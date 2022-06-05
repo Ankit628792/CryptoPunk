@@ -12,8 +12,6 @@ const { Option } = Select;
 
 const Crypto = () => {
   const router = useRouter()
-  // console.log(router.query);
-
   const { coinId } = router.query
   const [timeperiod, setTimeperiod] = useState('7d');
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
@@ -21,7 +19,6 @@ const Crypto = () => {
   const cryptoDetails = data?.data?.coin;
 
   if (isFetching) return <Loader />;
-  console.log(cryptoDetails['24hVolume'])
 
   const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y'];
   const stats = [

@@ -1,6 +1,7 @@
 import connectDB from './db'
 import User from '../../models/user'
 import Collection from '../../models/collection'
+
 export default async function (req, res) {
     await connectDB()
     if (req.method == 'GET') {

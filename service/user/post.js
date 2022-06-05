@@ -1,6 +1,6 @@
-const { default: User } = require("../../models/user");
+import User from "../../models/user";
 
-const createUser = async (req, res, next) => {
+export const createUser = async (req, res) => {
     try {
         const getUser = await User.findOne(req.body)
         if (!getUser) {
@@ -8,21 +8,16 @@ const createUser = async (req, res, next) => {
                 ...req.body,
             })
             await user.save();
-            console.log(user);
             res.json({
                 status: 201,
                 data: "User created successfully"
             })
         }
     } catch (err) {
-    console.log(err.message);
-    res.json({
-        status: 500,
-        message: err.message,
-    });
-}
-}
-
-module.exports = {
-    createUser,
+        console.log(err.message);
+        res.json({
+            status: 400,
+            message: err.message,
+        });
+    }
 }

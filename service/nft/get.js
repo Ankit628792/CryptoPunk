@@ -1,12 +1,12 @@
-const { default: Nft } = require("../../models/nft");
+import Nft from "../../models/nft";
 
-const getAllNfts = async (req, res, next) => {
+export const getAllNfts = async (req, res) => {
     try {
         const response = await Nft.find().limit(req.query.limit)
         res.json({
             data: response,
             message: {
-                message: "Nft found successfully",
+                message: "Nft found",
                 status: 200
             }
         })
@@ -14,14 +14,13 @@ const getAllNfts = async (req, res, next) => {
         console.log(err);
         res.json({
             message: err.message,
-            status: 500
+            status: 400
         });
     }
 }
-const getNft = async (req, res, next) => {
+export const getNft = async (req, res, next) => {
     try {
         const response = await Nft.findOne({ _id: req.query.id })
-        console.log(response);
         if (response) {
             res.json({
                 data: response,
@@ -45,7 +44,3 @@ const getNft = async (req, res, next) => {
 }
 
 
-module.exports = {
-    getAllNfts: getAllNfts,
-    getNft: getNft,
-}

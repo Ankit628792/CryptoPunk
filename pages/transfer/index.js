@@ -1,9 +1,10 @@
-// import { SiEthereum } from 'react-icons/si'
-// import { BsInfoCircle } from 'react-icons/bs'
 import LoaderSm from '../../components/LoaderSm';
 import Services from '../../components/Services';
 import { useEffect, useState } from 'react';
-import { checkIfTransactionsExists, sendTransaction, shortenAddress } from '../../utils/contract';
+import dynamic from 'next/dynamic';
+const { checkIfTransactionsExists, sendTransaction, shortenAddress } = dynamic(() => import('../../utils/contract'), {
+    ssr: false,
+})
 import { useMoralis } from 'react-moralis';
 import TransactionsCard from '../../components/TransactionCard';
 import dummyData from '../../utils/dummyData';
@@ -62,7 +63,7 @@ function index() {
             formData.currentAccount = user.get('ethAddress')
             fetchTransactions();
         }
-        setTransactionCount(localStorage?.getItem('transactionCount'))
+        setTransactionCount(window.localStorage?.getItem('transactionCount'))
     }, [transactionCount, user])
     return (
         <>
