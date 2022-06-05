@@ -18,7 +18,7 @@ function Loader() {
     }
     return (
         <div className="h-[80vh] flex items-center justify-center flex-col">
-            <div class="loader" dangerouslySetInnerHTML={createMarkup()}>
+            <div className="loader" dangerouslySetInnerHTML={createMarkup()}>
             </div>
         </div>
     )

@@ -1,10 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { NFT } from '../../../components'
 
+const getTotal = obj => Object.values(obj).reduce((a, b) => a + b);
+
 export default function CollectionDetails({ collection }) {
   const [nftList, setNftList] = useState()
+  const [floorPrice, setFloorPrice] = useState(0)
+
+  const fetchNFT = async (users) => {
+    const res = await Promise.all(users?.map(async (user) => {
+      const data = await fetch(`https://eth-rinkeby.alchemyapi.io/v2/demo/getNFTs/?owner=${user?.walletAddress}`);
+      if (data.status === 200) {
+        return (await data.json())?.ownedNfts
+      }
+    }))
+    let nftData = [];
+    res.forEach((element, i) => {
+      nftData.push(...element)
+    });
+    let sum = 0;
+    nftData = nftData.filter(item => { if (item?.metadata?.collection == collection?.name) { sum += parseFloat(item.metadata.price); return item } })
+    setNftList(nftData?.sort(() => Math.random() - 0.5))
+    setFloorPrice(sum);
+  }
   useEffect(() => {
-    fetch(`/api/nft?limit=${10}`).then(res => res.json()).then(data => setNftList(data?.data))
+    fetch('/api/user').then(res => res.json()).then(data => data && fetchNFT(data?.data)).catch(e => console.log(e))
   }, [])
   return (
     <>
@@ -39,7 +59,7 @@ export default function CollectionDetails({ collection }) {
         <div className="w-full flex justify-center text-white">
           <div className="flex flex-wrap justify-center gap-10 p-5 sm:px-10 border border-teal-900 rounded-xl mb-4">
             <div className="">
-              <div className="text-3xl font-bold text-center">10</div>
+              <div className="text-3xl font-bold text-center">{nftList?.length ?? 0}</div>
               <div className="text-lg min-w-max text-center mt-1">Items</div>
             </div>
             <div className="">
@@ -48,25 +68,25 @@ export default function CollectionDetails({ collection }) {
               </div>
               <div className="text-lg min-w-max text-center mt-1">Owners</div>
             </div>
-            <div className="">
+            <div className="flex flex-col justify-center">
               <div className="text-3xl font-bold text-center flex">
                 <img
-                  src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"
+                  src="/assets/icons/eth-blue.svg"
                   alt="eth"
-                  className="h-6 mr-2"
+                  className="h-8"
                 />
-                0.5
+                {floorPrice}
               </div>
               <div className="text-lg min-w-max text-center mt-1">Floor Price</div>
             </div>
-            <div className="">
-              <div className="text-3xl font-bold text-center flex">
+            <div className="flex flex-col justify-center">
+              <div className="text-3xl font-bold text-center flex mx-auto">
                 <img
-                  src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"
+                  src="/assets/icons/eth-blue.svg"
                   alt="eth"
-                  className="h-6 mr-2"
+                  className="h-8 mr-2"
                 />
-                124.1
+                {(Math.random() * 10).toFixed(2)}
               </div>
               <div className="text-lg min-w-max text-center mt-1">Volume Traded</div>
             </div>
@@ -80,7 +100,7 @@ export default function CollectionDetails({ collection }) {
       <hr className='border border-teal-800 my-5' />
 
       {/* collection NFTs here */}
-      <div className='p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center items-stretch justify-evenly max-w-7xl mx-auto flex-wrap gap-12 lg:gap-y-16'>
+      <div className='p-5 pb-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center items-stretch justify-evenly max-w-7xl mx-auto flex-wrap gap-12 lg:gap-y-16'>
         {nftList?.length > 0 && nftList.map((nft, i) => <NFT key={i + i} nft={nft} />)}
       </div>
     </>
@@ -88,7 +108,6 @@ export default function CollectionDetails({ collection }) {
 }
 
 export async function getServerSideProps({ params }) {
-  console.log(params)
   const { data } = await fetch(`${process.env.host}/api/collection?id=${params.collectionId}`).then(res => res.json())
   return {
     props: {

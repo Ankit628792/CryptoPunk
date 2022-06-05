@@ -131,6 +131,9 @@ function Navbar() {
                 </div>
                 <nav className='flex-shrink-0 hidden sm:inline-flex'>
                     <Space size={40}>
+                        <Text className='cursor-pointer text-lg hidden lg:flex items-center space-x-1' onClick={() => Router.push('/prediction/')}>
+                            Prediction
+                        </Text>
                         <Text className='cursor-pointer text-lg flex items-center space-x-1' onClick={() => Router.push('/nft/create')}>
                             Mint NFT
                         </Text>
@@ -175,6 +178,7 @@ function Navbar() {
                     <span className='hamburger-inner'> <span className='hamburger-icon shadow-lg fixed'></span> </span>
                     <ul>
                         <li onClick={handleCheckedSate}> <Link href="/">Home</Link></li>
+                        <li onClick={handleCheckedSate}> <Link href="/prediction">Prediction</Link></li>
                         <li onClick={handleCheckedSate}> <Link href="/nft/create">Mint NFT</Link></li>
                         <li onClick={handleCheckedSate}> <Link href="/nft/collection/create">Create Collection</Link></li>
                         <li onClick={handleCheckedSate}> <Link href="/nft/">NFT Marketplace</Link></li>

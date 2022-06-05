@@ -1,4 +1,4 @@
-import { Card, Col, Row, Select, Typography } from 'antd';
+import { Select } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import moment from 'moment';
 import React, { useState } from 'react'
@@ -6,7 +6,6 @@ import { useGetCryptosQuery } from '../crypto/cryptoApi';
 import { useGetCryptoNewsQuery } from '../crypto/cryptoNewsApi';
 import Loader from './Loader';
 
-const { Text, Title } = Typography
 const { Option } = Select
 const demoImage = 'https://coinrevolution.com/wp-content/uploads/2020/06/cryptonews.jpg'
 function News({ simplified }) {
