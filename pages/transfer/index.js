@@ -1,10 +1,7 @@
 import LoaderSm from '../../components/LoaderSm';
 import Services from '../../components/Services';
 import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-const { checkIfTransactionsExists, sendTransaction, shortenAddress } = dynamic(() => import('../../utils/contract'), {
-    ssr: false,
-})
+import { checkIfTransactionsExists, sendTransaction, shortenAddress } from '../../utils/contract';
 import { useMoralis } from 'react-moralis';
 import TransactionsCard from '../../components/TransactionCard';
 import dummyData from '../../utils/dummyData';
@@ -17,7 +14,6 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 
 function index() {
     const { user, isAuthenticated } = useMoralis()
-    if (!isAuthenticated) return <Connect />
     const [isLoading, setIsLoading] = useState(false)
     const [transactionCount, setTransactionCount] = useState();
     const [transactions, setTransactions] = useState([]);
@@ -65,6 +61,9 @@ function index() {
         }
         setTransactionCount(window.localStorage?.getItem('transactionCount'))
     }, [transactionCount, user])
+
+    if (!isAuthenticated) return <Connect />
+    
     return (
         <>
             <div className='flex w-full justify-center items-center'>

@@ -22,11 +22,11 @@ Router.events.on('routeChangeComplete', progress.finish)
 Router.events.on('routeChangeError', progress.finish)
 
 function MyApp({ Component, pageProps }) {
-  Moralis.start({ serverUrl: 'https://atufectnhvsp.usemoralis.com:2053/server', appId: 's7SK8R7KTBn3m38R1JlK1J5u6IWFdYo5bzXz9D9P' });
+  Moralis.start({ serverUrl: 'https://pb24gz4x48on.usemoralis.com:2053/server', appId: 'ip66U8bjQAVq1W9zKD4G3byjlouAlKFi50NoFV2E' });
   return (
     <MoralisProvider
-      appId="s7SK8R7KTBn3m38R1JlK1J5u6IWFdYo5bzXz9D9P"
-      serverUrl="https://atufectnhvsp.usemoralis.com:2053/server"
+      appId="ip66U8bjQAVq1W9zKD4G3byjlouAlKFi50NoFV2E"
+      serverUrl="https://pb24gz4x48on.usemoralis.com:2053/server"
     >
       <Provider store={store}>
         <Layout>
