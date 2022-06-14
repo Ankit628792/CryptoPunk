@@ -10,7 +10,7 @@ function mynft() {
     const [NFT, setNFT] = useState()
 
     useEffect(() => {
-        user && fetch(`https://eth-rinkeby.alchemyapi.io/v2/demo/getNFTs/?owner=${user?.get('ethAddress')}`).then(res => res.json()).then(data => setNFT(data?.ownedNfts)).catch(e => console.log(e))
+        user && fetch(`https://eth-rinkeby.alchemyapi.io/nft/v2/syCSoIu0Ws7qn2NZry_ztgAEo8NYgYbw/getNFTs/?owner=${user?.get('ethAddress')}`).then(res => res.json()).then(data => setNFT(data?.ownedNfts)).catch(e => console.log(e))
     }, [user])
     // console.log(parseInt(Number("0x0000000000000000000000000000000000000000000000000000000000000007")))
 

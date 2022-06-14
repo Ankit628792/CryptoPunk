@@ -36,16 +36,23 @@ function index({ collectionList }) {
   const [nftList, setNftList] = useState([]);
   const fetchNFT = async (users) => {
     const res = await Promise.all(users?.map(async (user) => {
-      const data = await fetch(`https://eth-rinkeby.alchemyapi.io/v2/demo/getNFTs/?owner=${user?.walletAddress}`);
-      if (data.status === 200) {
-        return (await data.json())?.ownedNfts
+      try {
+        const data = await fetch(`https://eth-rinkeby.alchemyapi.io/nft/v2/syCSoIu0Ws7qn2NZry_ztgAEo8NYgYbw/getNFTs/?owner=${user?.walletAddress}`);
+        if (data.status === 200) {
+          return (await data.json())?.ownedNfts
+        }
+      } catch (error) {
+        console.log(error)
+        return null
       }
     }))
-    let nftData = [];
-    res.forEach(element => {
-      nftData.push(...element)
-    });
-    setNftList(nftData?.slice(0, 8).sort(() => Math.random() - 0.5))
+    if (res) {
+      let nftData = [];
+      res.forEach(element => {
+        nftData.push(...element)
+      });
+      setNftList(nftData?.slice(0, 8).sort(() => Math.random() - 0.5))
+    }
   }
   useEffect(() => {
     fetch('/api/user').then(res => res.json()).then(data => data && fetchNFT(data?.data)).catch(e => console.log(e))

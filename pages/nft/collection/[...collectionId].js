@@ -9,19 +9,26 @@ export default function CollectionDetails({ collection }) {
 
   const fetchNFT = async (users) => {
     const res = await Promise.all(users?.map(async (user) => {
-      const data = await fetch(`https://eth-rinkeby.alchemyapi.io/v2/demo/getNFTs/?owner=${user?.walletAddress}`);
-      if (data.status === 200) {
-        return (await data.json())?.ownedNfts
+      try {
+        const data = await fetch(`https://eth-rinkeby.alchemyapi.io/nft/v2/syCSoIu0Ws7qn2NZry_ztgAEo8NYgYbw/getNFTs/?owner=${user?.walletAddress}`);
+        if (data.status === 200) {
+          return (await data.json())?.ownedNfts
+        }
+      } catch (error) {
+        console.log(error)
+        return null
       }
     }))
-    let nftData = [];
-    res.forEach((element, i) => {
-      nftData.push(...element)
-    });
-    let sum = 0;
-    nftData = nftData.filter(item => { if (item?.metadata?.collection == collection?.name) { sum += parseFloat(item.metadata.price); return item } })
-    setNftList(nftData?.sort(() => Math.random() - 0.5))
-    setFloorPrice(sum);
+    if (res) {
+      let nftData = [];
+      res.forEach((element, i) => {
+        nftData.push(...element)
+      });
+      let sum = 0;
+      nftData = nftData.filter(item => { if (item?.metadata?.collection == collection?.name) { sum += parseFloat(item.metadata.price); return item } })
+      setNftList(nftData?.sort(() => Math.random() - 0.5))
+      setFloorPrice(sum);
+    }
   }
   useEffect(() => {
     fetch('/api/user').then(res => res.json()).then(data => data && fetchNFT(data?.data)).catch(e => console.log(e))
@@ -75,7 +82,7 @@ export default function CollectionDetails({ collection }) {
                   alt="eth"
                   className="h-8"
                 />
-                {floorPrice}
+                {floorPrice?.toFixed(4)}
               </div>
               <div className="text-lg min-w-max text-center mt-1">Floor Price</div>
             </div>
