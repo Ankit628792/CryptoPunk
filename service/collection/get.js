@@ -1,7 +1,13 @@
 import Collection from "../../models/collection";
+import User from "../../models/user";
 
 export const getAllCollections = async (req, res) => {
-    const query = req.query?.userId ? { user: req.query?.userId } : req.query.walletAddress ? { walletAddress: req.query.walletAddress } : null
+    let userId = req?.query?.userId;
+    if (req.query.walletAddress) {
+        const user = await User.findOne({ walletAddress: req.query.walletAddress })
+        userId = user?._id
+    }
+    const query = userId ? { user: userId } : null
     try {
         const response = await Collection.find(query).limit(req.query.limit).sort({ _id: -1 });
         res.json({

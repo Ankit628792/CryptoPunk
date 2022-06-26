@@ -17,10 +17,9 @@ export const createNft = async (req, res, next) => {
             })
         }
         else {
-            console.log(err.message);
             res.json({
-                status: 400,
-                message: err.message,
+                status: 404,
+                message: 'User not found',
             });
         }
     } catch (err) {

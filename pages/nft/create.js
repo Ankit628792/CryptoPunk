@@ -19,7 +19,7 @@ function create() {
     const [userCollection, setUserCollection] = useState([]);
 
     useEffect(() => {
-        fetch(`/api/usercollection`).then((data) => {
+        fetch(`/api/usercollection?.walletAddress=${user?.get('ethAddress')}`).then((data) => {
             return data.json();
         }).then((resp) => {
             setUserCollection(resp.data);

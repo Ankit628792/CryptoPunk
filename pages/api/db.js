@@ -1,22 +1,16 @@
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
-// const connectDB = async () => {
-//   if (mongoose.connections[0].readyState) {
-//     // Use current db connection
-//     return 'Using current db connection'
-//   }
-//   // Use new db connection
-//   await mongoose.connect(process.env.DB_URI, {
-//     useUnifiedTopology: true,
-//     useNewUrlParser: true
-//   });
-//   return 'Using new db connection'
-// };
+const connectDB = async () => {
+  if (mongoose.connections[0].readyState) {
+    // Use current db connection
+    return 'Using current db connection'
+  }
+  // Use new db connection
+  await mongoose.connect(process.env.DB_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  });
+  return 'Using new db connection'
+};
 
-// export default connectDB;
-
-import { Pool } from "pg/lib";
-import { config } from '../../utils/config';
-const connectDB = new Pool(config);
-
-export default connectDB
+export default connectDB;
