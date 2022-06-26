@@ -131,9 +131,6 @@ function Navbar() {
                 </div>
                 <nav className='flex-shrink-0 hidden sm:inline-flex'>
                     <Space size={40}>
-                        <Text className='cursor-pointer text-lg hidden lg:flex items-center space-x-1' onClick={() => Router.push('/prediction/')}>
-                            Prediction
-                        </Text>
                         <Text className='cursor-pointer text-lg flex items-center space-x-1' onClick={() => Router.push('/nft/create')}>
                             Mint NFT
                         </Text>
