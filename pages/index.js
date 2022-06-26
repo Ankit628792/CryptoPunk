@@ -3,13 +3,13 @@ import { Cards } from "../components"
 import { useMoralis } from "react-moralis";
 
 const items = [
-  {
-    id: 1,
-    imgSrc: '/assets/icons/predict.png',
-    heading: "Predict Crypto market",
-    desc: "Easily make predictions through our intuitive interface",
-    link: '/market/'
-  },
+  // {
+  //   id: 1,
+  //   imgSrc: '/assets/icons/predict.png',
+  //   heading: "Predict Crypto market",
+  //   desc: "Easily make predictions through our intuitive interface",
+  //   link: '/market/'
+  // },
   {
     id: 2,
     imgSrc: '/assets/icons/nft.png',
@@ -35,13 +35,13 @@ const items = [
 ]
 
 const details = [
-  {
-    id: 1,
-    imgSrc: '/assets/images/prediction.svg',
-    heading: 'Prediction',
-    desc: 'Predict the market by our latest market details and news. Predicting cryptocurrency prices has been quite restrictive. Factors affecting Crypto Market are like cost of production, transaction, regulations, supply and demand chain, regulatory developments, competition between token, altcoins, cryptos.',
-    link: '/market/'
-  },
+  // {
+  //   id: 1,
+  //   imgSrc: '/assets/images/prediction.svg',
+  //   heading: 'Prediction',
+  //   desc: 'Predict the market by our latest market details and news. Predicting cryptocurrency prices has been quite restrictive. Factors affecting Crypto Market are like cost of production, transaction, regulations, supply and demand chain, regulatory developments, competition between token, altcoins, cryptos.',
+  //   link: '/market/'
+  // },
   {
     id: 2,
     imgSrc: '/assets/images/nft.svg',
