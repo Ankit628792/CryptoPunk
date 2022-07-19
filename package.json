@@ -18,7 +18,6 @@
     "html-react-parser": "^1.4.8",
     "magic-sdk": "^8.1.0",
     "millify": "^4.0.0",
-    "mongoose": "^6.2.2",
     "moralis": "^1.5.9",
     "next": "latest",
     "pg": "^8.7.3",

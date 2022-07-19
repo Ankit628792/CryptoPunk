@@ -1,0 +1,20 @@
+{
+    "attributes": [
+      {
+        "trait_type": "Hero",
+        "value": "Spiderman"
+      },
+      {
+        "trait_type": "Color",
+        "value": "Red + Blue"
+      },
+      {
+        "trait_type": "Hero Name",
+        "value": "Peter Parker"
+      }
+    ],
+    "description": "The world's most adorable and youngest marvel super hero.",
+    "image": "ipfs://QmPWegmLbMDxjX5jB1nqD43hgfVKScam6m231iBioVZeBc",
+    "name": "Spidy"
+  }
+  

@@ -1,12 +1,13 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['sample-api-data.vercel.app', 'images.unsplash.com', 'res.cloudinary.com', 'source.unsplash.com', 'gateway.pinata.cloud'],
+    domains: ['images.unsplash.com', 'res.cloudinary.com', 'source.unsplash.com', 'gateway.pinata.cloud'],
   },
   env: {
     dbURI: process.env.MONGODB_URI,
     appId: process.env.MORALIS_APP_ID,
     serverUrl: process.env.MORALIS_SERVER,
+    cloudinaryUrl: process.env.CLOUDINARY_URL,
     host: process.env.HOST,
     moralisApiKey: process.env.MORALIS_API_KEY,
     speedyNode: process.env.SPEEDY_NODE,
