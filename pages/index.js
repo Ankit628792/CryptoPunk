@@ -3,13 +3,13 @@ import { Cards } from "../components"
 import { useMoralis } from "react-moralis";
 
 const items = [
-  // {
-  //   id: 1,
-  //   imgSrc: '/assets/icons/predict.png',
-  //   heading: "Predict Crypto market",
-  //   desc: "Easily make predictions through our intuitive interface",
-  //   link: '/market/'
-  // },
+  {
+    id: 1,
+    imgSrc: '/assets/icons/predict.png',
+    heading: "Predict Crypto market",
+    desc: "Predict market by our latest market details and news.",
+    link: '/market/'
+  },
   {
     id: 2,
     imgSrc: '/assets/icons/nft.png',
