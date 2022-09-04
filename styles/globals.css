@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    -webkit-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
+}
 /* Navbar and hamburger menu  */
 body{
     background-color: #052631 !important;
