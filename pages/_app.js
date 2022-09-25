@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }) {
         <Layout>
           <Head>
             <link rel="shortcut icon" href="/assets/icons/icon.png" />
-            <title>Cryptolens</title>
+            <title>CryptoPunk</title>
           </Head>
           <Component {...pageProps} />
         </Layout>

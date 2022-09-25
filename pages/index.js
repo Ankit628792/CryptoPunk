@@ -86,7 +86,7 @@ const Home = () => {
           {isAuthenticated ?
             <button className='btn' onClick={() => logout()}>Disconnect Wallet</button>
             :
-            <button className='btn' onClick={() => authenticate({ provider: "metamask", signingMessage: 'Connect to Cryptolens' })}>Connect Wallet</button>
+            <button className='btn' onClick={() => authenticate({ provider: "metamask", signingMessage: 'Connect to CryptoPunk' })}>Connect Wallet</button>
           }
         </div>
       </section>

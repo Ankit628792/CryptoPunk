@@ -127,7 +127,7 @@ function Navbar() {
             <header className='sticky top-0 flex items-center justify-between w-full p-5 md:px-10 2xl:px-20 max-w-7xl mx-auto bg-[#052631] z-50'>
                 <div className="logo flex-shrink-0 flex items-center space-x-2 cursor-pointer" onClick={() => Router.push('/')}>
                     <img className='w-12' src="/assets/icons/icon.png" alt="" />
-                    <Typography.Title level={3} className="hidden md:inline-flex">Cryptolens</Typography.Title>
+                    <Typography.Title level={3} className="hidden md:inline-flex">CryptoPunk</Typography.Title>
                 </div>
                 <nav className='flex-shrink-0 hidden sm:inline-flex'>
                     <Space size={40}>
@@ -162,7 +162,7 @@ function Navbar() {
                                 </Space>
                             </Dropdown>
                             :
-                            <button className='btn' onClick={() => authenticate({ provider: "metamask", signingMessage: 'Connect to Cryptolens' })}>Connect</button>
+                            <button className='btn' onClick={() => authenticate({ provider: "metamask", signingMessage: 'Connect to CryptoPunk' })}>Connect</button>
                         }
                     </Space>
                 </nav>
