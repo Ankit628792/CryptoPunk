@@ -22,7 +22,7 @@ Router.events.on('routeChangeComplete', progress.finish)
 Router.events.on('routeChangeError', progress.finish)
 
 function MyApp({ Component, pageProps }) {
-  Moralis.start({ serverUrl: 'https://pb24gz4x48on.usemoralis.com:2053/server', appId: 'ip66U8bjQAVq1W9zKD4G3byjlouAlKFi50NoFV2E' });
+  // Moralis.start({ serverUrl: 'https://pb24gz4x48on.usemoralis.com:2053/server', appId: 'ip66U8bjQAVq1W9zKD4G3byjlouAlKFi50NoFV2E' });
   return (
     <MoralisProvider
       appId="ip66U8bjQAVq1W9zKD4G3byjlouAlKFi50NoFV2E"
